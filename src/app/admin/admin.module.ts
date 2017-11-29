@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DataTableModule } from 'angular-4-data-table/src/index';
+// import { DataTableModule } from 'angular-4-data-table/src/index';
 
 import { AuthGaurd } from '../shared/guards/auth.guard';
 import { SharedModule } from './../shared/shared.module';
@@ -11,41 +11,31 @@ import { AdminGuard } from './guards/admin.guard';
 
 const ROUTES = [
   {
-    path: 'admin',
-    canActivateChild: [AuthGaurd, AdminGuard],
-    children: [
-
-      {
-        path: 'orders',
-        component: OrdersComponent
-      },
-
-      {
-        path: 'products',
-        children: [
-          {
-            path: '',
-            component: ProductsComponent,
-          },
-          {
-            path: 'add',
-            component: ProductFormComponent
-          },
-          {
-            path: ':id',
-            component: ProductFormComponent
-          }
-        ]
-      }
-
-    ]
+    path: 'admin/products',
+    component: ProductsComponent,
+    canActivate: [AuthGaurd, AdminGuard]
+  },
+  {
+    path: 'admin/orders',
+    component: OrdersComponent,
+    canActivate: [AuthGaurd, AdminGuard]
+  },
+  {
+    path: 'admin/products/add',
+    component: ProductFormComponent,
+    canActivate: [AuthGaurd, AdminGuard]
+  },
+  {
+    path: 'admin/products/:id',
+    component: ProductFormComponent,
+    canActivate: [AuthGaurd, AdminGuard]
   }
 ];
 
 @NgModule({
   imports: [
     SharedModule,
-    DataTableModule,
+  //  DataTableModule,
     RouterModule.forChild(ROUTES),
   ],
   declarations: [
@@ -56,4 +46,4 @@ const ROUTES = [
   providers: [AdminGuard],
   exports: []
 })
-export class AdminModule { }
+export class AdminModule {}

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
@@ -7,7 +6,7 @@ import { FirebaseHttpService } from './firebase-http.service';
 
 @Injectable()
 export class UserService extends FirebaseHttpService<User> {
-  constructor(http: HttpClient) {
+  constructor(http: Http) {
     super('users', http);
   }
 

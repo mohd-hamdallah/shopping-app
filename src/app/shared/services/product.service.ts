@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Http } from '@angular/http';
 import { AuthService } from 'app/shared/services/auth.service';
 import { Injectable } from '@angular/core';
@@ -9,7 +8,7 @@ import { Category } from 'app/shared/models/category.model';
 @Injectable()
 export class ProductService extends FirebaseHttpService<Product> {
 
-  constructor(http: HttpClient) {
+  constructor(http: Http) {
     super('products', http);
   }
 

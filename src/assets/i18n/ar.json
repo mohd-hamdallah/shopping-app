@@ -1,0 +1,11 @@
+{
+    "locale" : "English",
+    "Title": "مثال ترجمة",
+    "Intro": "أهلا أنا{{name}}  , و عمري {{age}}",
+    "Startpage": {
+        "TranslationSections": "مرحبا"
+    },
+     "Aboutpage": {
+        "TranslationSections": "تجربة ناجحة"
+    }
+}

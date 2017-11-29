@@ -1,5 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-
+import { Response } from '@angular/http';
+import { Http } from '@angular/http/src/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Identifiable } from '../models/Identfiable.model';
@@ -11,9 +11,9 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
 
   constructor(
     private endpoint,
-    private http: HttpClient
+    private http: Http
   ) {
-    this.url = `${FirebaseHttpService.baseUrl}/${this.endpoint}.json`;
+      this.url = `${FirebaseHttpService.baseUrl}/${this.endpoint}.json`;
   }
 
   abstract transformFirebaseEntityToObject(init): T;
@@ -22,43 +22,53 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
     return t;
   }
   getAll(): Observable<T[]> {
-    return this.http.get<T>(this.url, this.options)
+    return this.http.get(this.url, this.options)
+      .map((response: Response) => response.json())
       .map(collection => this.transformFirebaseCollectionToArray(collection));
   }
 
   getAllByProperty(propertyName: string, propertyValue: string): Observable<T[]> {
-
-    return this.http.get<T>(this.url, this.getPropertySearchOptions(propertyName, propertyValue))
-
-      .map(collection => this.transformFirebaseCollectionToArray(collection));
+    return this.http.get(this.url, {
+      params: {
+        ...this.options.params,
+        orderBy: `"${propertyName}"`,
+        equalTo: `"${propertyValue}"`
+      }
+    }).map((response: Response) => response.json())
+    .map((rl) => {
+      console.log(rl);
+      return rl;
+    })
+    .map(collection => this.transformFirebaseCollectionToArray(collection));
   }
 
   getById(id: string): Observable<T> {
     return this.http.get(this.entityUrl(id), this.options)
+      .map((response: Response) => response.json())
       .map(response => {
         return this.transformFirebaseEntityToObject(
-          { ...response, id: id }
+          {...response, id: id}
         );
       });
   }
 
   add(entity: T): Observable<string> {
-    return this.http.post<T>(
+    return this.http.post(
       this.url,
       this.transformObjectToFirebaseEntity(entity)
-    ).map(response => response['name']);
+    ).map(response => response.json().name);
   }
 
   update(t: T): Observable<T> {
-    return this.http.put<T>(
+    return this.http.put(
       this.entityUrl(t.id),
       this.transformObjectToFirebaseEntity(t)
-    );
+    ).map(response => response.json());
   }
 
   delete(t: T): Observable<void> {
-    return this.http.delete<T>(this.entityUrl(t.id))
-      .map(reponse => { });
+    return this.http.delete(this.entityUrl(t.id))
+      .map(reponse => {});
   }
 
   private entityUrl(id: string) {
@@ -67,24 +77,14 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
 
   private get options() {
     return {
-      params: new HttpParams().set('auth', LocalStorgrUtil.get('token'))
+      params: {'auth': LocalStorgrUtil.get('token')}
     };
   }
-
-  private getPropertySearchOptions(propertyName: string, propertyValue: string) {
-
-    const httpParams = this.options.params
-    .set('orderBy', `"${propertyName}"`)
-    .set('equalTo', `"${propertyValue}"`);
-
-    return {params: httpParams};
-  }
-
 
   private transformFirebaseCollectionToArray(firebaseCollection): T[] {
     const array = [];
     Object.keys(firebaseCollection).forEach(key => {
-      array.push(this.transformFirebaseEntityToObject({ ...firebaseCollection[key], id: key }));
+      array.push(this.transformFirebaseEntityToObject({...firebaseCollection[key], id: key}));
     });
     return array;
   }
