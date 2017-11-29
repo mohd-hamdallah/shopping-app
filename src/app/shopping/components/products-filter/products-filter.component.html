@@ -1,0 +1,17 @@
+<ul class="list-group" *ngIf="categories">
+    <li class="list-group-item"
+      [routerLink]="[PARENT_ROUTE]"
+      [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}">
+      All
+    </li>
+    <li class="list-group-item"
+      *ngFor="let c of categories"
+      [routerLink]="[PARENT_ROUTE]"
+      [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}"
+      [queryParams]="{category: c.id}">
+      {{c.name}}
+    </li>
+  </ul>
+

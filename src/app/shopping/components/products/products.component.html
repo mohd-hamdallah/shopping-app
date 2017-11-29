@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-3">
+    <shopping-products-filter [categories]="categories$ | async">
+    </shopping-products-filter>
+  </div>
+  <div class="col-md-9">
+    <shopping-product-grid [products]="products">
+    </shopping-product-grid>
+  </div>
+</div>

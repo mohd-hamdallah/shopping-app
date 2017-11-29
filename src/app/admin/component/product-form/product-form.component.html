@@ -1,0 +1,55 @@
+<div class="row" *ngIf="product">
+  <div class="col-md-6">
+    <form #productForm="ngForm">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" [(ngModel)]="product.title" class="form-control" #titleInput="ngModel" required>
+        <div class="alert alert-danger" *ngIf="titleInput.dirty && titleInput.errors">
+          Title is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input #priceInput="ngModel" name="price"
+            [(ngModel)]="product.price" type="number"
+            id="price" class="form-control" required [gt]="0">
+        </div>
+        <div class="alert alert-danger" *ngIf="priceInput.dirty && priceInput.errors">
+          <div *ngIf="priceInput.errors.required">Price is required</div>
+          <div *ngIf="priceInput.errors.gt">Price should be a positive number</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select required name="catergory" #categoryInput="ngModel" [(ngModel)]="product.category" class="form-control" id="category">
+          <option></option>
+          <ng-container *ngFor="let cat of categories$ | async">
+            <option [value]="cat.id">{{cat.name}}</option>
+          </ng-container>
+        </select>
+        <div class="alert alert-danger" *ngIf="categoryInput.dirty && categoryInput.errors">
+          Category is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="image">Image Url</label>
+        <input #imageUrlInput="ngModel"
+          [(ngModel)]="product.imageUrl"
+          type="text" name="image" id="image"
+          class="form-control" required url>
+        <div class="alert alert-danger" *ngIf="imageUrlInput.dirty && imageUrlInput.errors">
+          <div *ngIf="imageUrlInput?.errors.url">You should enter a valid url</div>
+          <div *ngIf="imageUrlInput?.errors.required">image Url is required</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="submit()">Save</button>
+      <button class="btn btn-danger" (click)="delete()">Delete</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <shared-product-card [product]="product"></shared-product-card>
+  </div>
+
+</div>

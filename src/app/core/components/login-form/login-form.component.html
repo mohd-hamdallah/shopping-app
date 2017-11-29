@@ -1,0 +1,16 @@
+<form (ngSubmit)="submit(email.value,password.value)" >
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input #email type="email" id="email" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input #password type="password" id="password" class="form-control">
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    Incorrect email or password
+  </div>
+  <button
+  type="sub"
+  class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,10 @@
+<div  class="row">
+  <div class="col-6 margin-bottom"
+    *ngFor="let p of products, let i = index">
+    <shared-product-card
+      [product]="p"
+      [hasAction]="true">
+    </shared-product-card>
+    <div class="w-100"></div>
+  </div>
+</div>

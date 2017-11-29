@@ -1,0 +1,18 @@
+<div class="card">
+      <div [style.backgroundImage]="'url(' + product.imageUrl + ')'" class="img">
+        </div>
+    <div class="card-block">
+      <h4 class="card-title" *ngIf="product.title; else noTitle">
+        {{ product.title }}
+      </h4>
+      <ng-template #noTitle>
+        <h4>
+          Product Title
+        </h4>
+      </ng-template>
+      <p class="card-text">{{ product.price | currency:'USD':true}}</p>
+    </div>
+    <div *ngIf="hasAction">
+      <button class="btn btn-primary btn-block">Add to cart</button>
+    </div>
+</div>
