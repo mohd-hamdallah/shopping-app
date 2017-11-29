@@ -11,24 +11,34 @@ import { AdminGuard } from './guards/admin.guard';
 
 const ROUTES = [
   {
-    path: 'admin/products',
-    component: ProductsComponent,
-    canActivate: [AuthGaurd, AdminGuard]
-  },
-  {
-    path: 'admin/orders',
-    component: OrdersComponent,
-    canActivate: [AuthGaurd, AdminGuard]
-  },
-  {
-    path: 'admin/products/add',
-    component: ProductFormComponent,
-    canActivate: [AuthGaurd, AdminGuard]
-  },
-  {
-    path: 'admin/products/:id',
-    component: ProductFormComponent,
-    canActivate: [AuthGaurd, AdminGuard]
+    path: 'admin',
+    canActivateChild: [AuthGaurd, AdminGuard],
+    children: [
+
+      {
+        path: 'orders',
+        component: OrdersComponent
+      },
+
+      {
+        path: 'products',
+        children: [
+          {
+            path: '',
+            component: ProductsComponent,
+          },
+          {
+            path: 'add',
+            component: ProductFormComponent
+          },
+          {
+            path: ':id',
+            component: ProductFormComponent
+          }
+        ]
+      }
+
+    ]
   }
 ];
 
@@ -46,4 +56,4 @@ const ROUTES = [
   providers: [AdminGuard],
   exports: []
 })
-export class AdminModule {}
+export class AdminModule { }
