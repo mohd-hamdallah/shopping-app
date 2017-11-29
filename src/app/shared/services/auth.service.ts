@@ -13,9 +13,16 @@ import { LocalStorgrUtil } from './../utils/local-storge.util';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 
+const tokenKey = 'token';
+
 @Injectable()
 export class AuthService {
-  AUTH_ENDPOINT = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBPUKGPMmaJsVMqq-KaY56Kn5TPLAKOqks';
+  static ENDPOINT = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBPUKGPMmaJsVMqq-KaY56Kn5TPLAKOqks';
+
+  static getToken() {
+    return LocalStorgrUtil.get(tokenKey);
+  }
+
   constructor(
     private router: Router,
     private userService: UserService,
@@ -24,13 +31,13 @@ export class AuthService {
 
   login(email: string, password): Observable<boolean> {
     return this.http
-      .post(this.AUTH_ENDPOINT, {
+      .post(AuthService.ENDPOINT, {
         email: email,
         password: password,
         returnSecureToken: true
       })
       .mergeMap(response => {
-        LocalStorgrUtil.set('token', response['idToken']);
+        LocalStorgrUtil.set(tokenKey, response['idToken']);
 
         const username = email.substring(0, email.indexOf('@'));
         return this.userService.getByUsername(username);
@@ -41,7 +48,7 @@ export class AuthService {
       })
       .catch(error => {
         console.log(error);
-        LocalStorgrUtil.remove('token');
+        LocalStorgrUtil.remove(tokenKey);
         return Observable.of(false);
       });
   }
@@ -51,7 +58,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return LocalStorgrUtil.has('token') && LocalStorgrUtil.has('user');
+    return LocalStorgrUtil.has(tokenKey) && LocalStorgrUtil.has('user');
   }
 
   isAdmin(): boolean {
@@ -60,7 +67,9 @@ export class AuthService {
 
   logout() {
     LocalStorgrUtil.remove('user');
-    LocalStorgrUtil.remove('token');
+    LocalStorgrUtil.remove(tokenKey);
     this.router.navigate(['/login']);
   }
+
 }
+
