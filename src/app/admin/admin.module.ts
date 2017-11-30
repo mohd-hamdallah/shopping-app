@@ -1,17 +1,18 @@
+import { AuthGaurd } from 'shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DataTableModule } from 'angular-4-data-table/src/index';
 
-import { AuthGaurd } from '../shared/guards/auth.guard';
-import { SharedModule } from './../shared/shared.module';
+import { AdminGuard } from 'shared/guards/admin.guard';
+import { SharedModule } from 'shared/shared.module';
 import { OrdersComponent } from './component/orders/orders.component';
 import { ProductFormComponent } from './component/product-form/product-form.component';
 import { ProductsComponent } from './component/products/products.component';
-import { AdminGuard } from './guards/admin.guard';
+
 
 const ROUTES = [
   {
-    path: 'admin',
+    path: '',
     canActivateChild: [AuthGaurd, AdminGuard],
     children: [
 
@@ -53,7 +54,7 @@ const ROUTES = [
     ProductsComponent,
     ProductFormComponent
   ],
-  providers: [AdminGuard],
+  providers: [],
   exports: []
 })
 export class AdminModule { }

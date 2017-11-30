@@ -5,7 +5,7 @@ export class LocalStorgrUtil {
 
   public static get(key: string) {
     if (!LocalStorgrUtil.has(key)) {
-      throw new Error(`There is no item stored with key = '${key}'`);
+     return undefined;
     }
     return JSON.parse(localStorage.getItem(key));
   }

@@ -1,3 +1,5 @@
+import { AdminGuard } from './guards/admin.guard';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
     NgbModule.forRoot(),
     HttpClientModule
@@ -22,9 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
   exports: [
     ProductCardComponent,
     FormsModule,
-    BrowserModule,
     NgbModule,
     CustomFormsModule,
+    CommonModule
   ],
   declarations: [ProductCardComponent],
   providers: [
@@ -34,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductService,
     CustomFormsModule,
     AuthGaurd,
+    AdminGuard
   ]
 })
 export class SharedModule { }
