@@ -1,5 +1,6 @@
 import { AdminGuard } from './guards/admin.guard';
 import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,7 +13,7 @@ import { AuthService } from './services/auth.service';
 import { CategoryService } from './services/category.service';
 import { ProductService } from './services/product.service';
 import { UserService } from './services/user.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProductService,
     CustomFormsModule,
     AuthGaurd,
-    AdminGuard
+    AdminGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })
 export class SharedModule { }

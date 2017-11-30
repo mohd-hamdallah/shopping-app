@@ -1,9 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-
 import { Observable } from 'rxjs/Observable';
 
 import { Identifiable } from '../models/Identfiable.model';
-import { LocalStorgrUtil } from './../utils/local-storge.util';
 
 export abstract class FirebaseHttpService<T extends Identifiable> {
   private static baseUrl = 'https://fir-demo-524e3.firebaseio.com';
@@ -22,7 +20,7 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
     return t;
   }
   getAll(): Observable<T[]> {
-    return this.http.get<T>(this.url, this.options)
+    return this.http.get<T>(this.url)
       .map(collection => this.transformFirebaseCollectionToArray(collection));
   }
 
@@ -34,7 +32,7 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
   }
 
   getById(id: string): Observable<T> {
-    return this.http.get(this.entityUrl(id), this.options)
+    return this.http.get(this.entityUrl(id))
       .map(response => {
         return this.transformFirebaseEntityToObject(
           { ...response, id: id }
@@ -65,19 +63,13 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
     return `${FirebaseHttpService.baseUrl}/${this.endpoint}/${id}.json`;
   }
 
-  private get options() {
-    return {
-      params: new HttpParams().set('auth', LocalStorgrUtil.get('token'))
-    };
-  }
-
   private getPropertySearchOptions(propertyName: string, propertyValue: string) {
 
-    const httpParams = this.options.params
-    .set('orderBy', `"${propertyName}"`)
-    .set('equalTo', `"${propertyValue}"`);
+    const httpParams = new HttpParams()
+      .set('orderBy', `"${propertyName}"`)
+      .set('equalTo', `"${propertyValue}"`);
 
-    return {params: httpParams};
+    return { params: httpParams };
   }
 
 
