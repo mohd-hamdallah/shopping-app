@@ -9,20 +9,21 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthGaurd } from 'shared/guards/auth.guard';
 
 export const ROUTES: Route[] = [
-      {
-        path: 'login',
-        component: LoginFormComponent
-      },
-      {
-        path: '',
-        component: HomeComponent,
-        canActivate: [AuthGaurd]
-      },
-      {
-        path: '**',
-        component: NotFoundComponent
-      }
-    ];
+  {
+    path: 'login',
+    component: LoginFormComponent
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGaurd]
+  }
+];
 
 @NgModule({
   declarations: [
@@ -37,4 +38,4 @@ export const ROUTES: Route[] = [
   ],
   exports: [NavbarComponent]
 })
-export class CoreModule {}
+export class CoreModule { }
