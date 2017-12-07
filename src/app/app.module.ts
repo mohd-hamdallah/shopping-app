@@ -16,7 +16,7 @@ import { ShoppingModule } from './shopping/shopping.module';
   ],
   imports: [
     BrowserModule,
-    SharedModule,
+    SharedModule.forRoot(),
     ShoppingModule,
     RouterModule.forRoot([
       {

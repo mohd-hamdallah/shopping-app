@@ -1,7 +1,7 @@
 import { AdminGuard } from './guards/admin.guard';
 import { CommonModule } from '@angular/common';
 import { AuthInterceptor } from './services/auth.interceptor';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -29,16 +29,24 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     CustomFormsModule,
     CommonModule
   ],
-  declarations: [ProductCardComponent],
-  providers: [
-    AuthService,
-    UserService,
-    CategoryService,
-    ProductService,
-    CustomFormsModule,
-    AuthGaurd,
-    AdminGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ]
+  declarations: [ProductCardComponent]
 })
-export class SharedModule { }
+export class SharedModule {
+
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: [
+        AuthService,
+        UserService,
+        CategoryService,
+        ProductService,
+        CustomFormsModule,
+        AuthGaurd,
+        AdminGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+      ]
+    };
+  }
+
+}
