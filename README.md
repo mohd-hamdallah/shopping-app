@@ -3,12 +3,20 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.
 ## Plugins
 You should add 'code' to your $PATH variable. Then, run this command
+### Must have
 ```bash
 code \
-    --install-extension Angular.ng-template \
+    --install-extension eg2.tslint \
+    --install-extension rbbit.typescript-hero \
+    --install-extension esbenp.prettier-vscode \
+    --install-extension EditorConfig.EditorConfig \
+    --install-extension Angular.ng-template 
+```
+### Optional
+```bash
+code \
     --install-extension AngularDoc.angulardoc-vscode \
     --install-extension CoenraadS.bracket-pair-colorizer \
-    --install-extension EditorConfig.EditorConfig \
     --install-extension IBM.output-colorizer \
     --install-extension Mikael.Angular-BeastCode \
     --install-extension PKief.material-icon-theme \
@@ -16,13 +24,10 @@ code \
     --install-extension christian-kohler.path-intellisense \
     --install-extension donjayamanne.githistory \
     --install-extension eamodio.gitlens \
-    --install-extension eg2.tslint \
     --install-extension eg2.vscode-npm-script \
-    --install-extension esbenp.prettier-vscode \
     --install-extension infinity1207.angular2-switcher \
     --install-extension joelday.docthis \
     --install-extension msjsdiag.debugger-for-chrome \
-    --install-extension rbbit.typescript-hero \
     --install-extension sanderledegen.angular-follow-selector \
     --install-extension stringham.move-ts \
     --install-extension xabikos.JavaScriptSnippets
