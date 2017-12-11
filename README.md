@@ -8,6 +8,7 @@ code \
     --install-extension Angular.ng-template \
     --install-extension AngularDoc.angulardoc-vscode \
     --install-extension CoenraadS.bracket-pair-colorizer \
+    --install-extension EditorConfig.EditorConfig \
     --install-extension IBM.output-colorizer \
     --install-extension Mikael.Angular-BeastCode \
     --install-extension PKief.material-icon-theme \
