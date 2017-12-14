@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -25,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpModule,
     FormsModule,
     NgbModule.forRoot(),
+    MatTableModule,
     TranslateModule.forRoot(
       {
         loader: {
@@ -43,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbModule,
     CustomFormsModule,
     HttpClientModule,
+    MatTableModule,
     TranslateModule
   ],
   declarations: [ProductCardComponent],

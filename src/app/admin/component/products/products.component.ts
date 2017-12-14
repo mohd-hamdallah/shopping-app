@@ -1,5 +1,8 @@
-import { ProductService } from '../../../shared/services/product.service';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
+
+import { Product } from '../../../shared/models/product.model';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'admin-products',
@@ -7,19 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  items: any[] = [];
-  itemCount: number;
-  // itemResource: DataTableResource<any>;
-  constructor(private service: ProductService) {}
+  items: MatTableDataSource<Product>;
+  displayedColumns = ['title', 'price', 'edit'];
+
+  constructor(private service: ProductService) { }
 
   ngOnInit() {
-    this.service.getAll().subscribe(response => {
-      // this.itemResource = new DataTableResource(response);
-      // this.itemResource.count().then(count => (this.itemCount = count));
-    });
-  }
-
-  reloadItems(params) {
-    // this.itemResource.query(params).then(items => (this.items = items));
+    this.service.getAll()
+      .subscribe(products => this.items = new MatTableDataSource(products));
   }
 }

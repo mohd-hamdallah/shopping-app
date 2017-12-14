@@ -1,1 +1,23 @@
 <button class="btn btn-primary" routerLink="/admin/products/add">Add Product</button>
+
+<div *ngIf="items">
+    <mat-table [dataSource]="items">
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+            <mat-cell *matCellDef="let item">{{ item.title }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+            <mat-cell *matCellDef="let item">{{ item.price }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <button [routerLink]="'/admin/products/' + item.id">Edit</button>
+            </mat-cell>
+        </ng-container>
+    </mat-table>
+</div>
