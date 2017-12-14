@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
 import { AuthService } from 'app/shared/services/auth.service';
 import { Injectable } from '@angular/core';
 import { FirebaseHttpService } from 'app/shared/services/firebase-http.service';

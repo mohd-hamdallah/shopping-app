@@ -1,17 +1,16 @@
-
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../models/user.model';
 import { LocalStorgrUtil } from './../utils/local-storge.util';
 import { UserService } from './user.service';
-import { HttpClient } from '@angular/common/http';
 
 const tokenKey = 'token';
 
@@ -24,10 +23,10 @@ export class AuthService {
   }
 
   constructor(
+    private http: HttpClient,
     private router: Router,
-    private userService: UserService,
-    private http: HttpClient
-  ) { }
+    private userService: UserService
+  ) {}
 
   login(email: string, password): Observable<boolean> {
     return this.http

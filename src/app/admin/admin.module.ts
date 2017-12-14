@@ -1,7 +1,7 @@
 import { AuthGaurd } from 'shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DataTableModule } from 'angular-4-data-table/src/index';
+// import { DataTableModule } from 'angular-4-data-table/src/index';
 
 import { AdminGuard } from 'shared/guards/admin.guard';
 import { SharedModule } from 'shared/shared.module';
@@ -46,7 +46,7 @@ const ROUTES = [
 @NgModule({
   imports: [
     SharedModule,
-    DataTableModule,
+  //  DataTableModule,
     RouterModule.forChild(ROUTES),
   ],
   declarations: [
@@ -57,4 +57,4 @@ const ROUTES = [
   providers: [],
   exports: []
 })
-export class AdminModule { }
+export class AdminModule {}

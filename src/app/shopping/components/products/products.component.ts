@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'app/shared/models/category.model';
@@ -24,23 +25,31 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private categoryService: CategoryService,
-  ) {}
+    translate: TranslateService
+  ) {
+
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('en');
+
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    translate.use('ar');
+  }
 
   ngOnInit() {
     this.categories$ = this.categoryService.getAll();
 
     this.route.queryParamMap.subscribe(queryParams =>
-        this.populateProducts(queryParams.get('category'))
+      this.populateProducts(queryParams.get('category'))
     );
   }
 
   populateProducts(categoryParam): void {
-      if (categoryParam) {
-        this.productService.getAllByCategory(categoryParam)
-          .subscribe(products => this.products = products);
-      } else {
-        this.productService.getAll()
-          .subscribe(ps => this.products = ps);
-      }
+    if (categoryParam) {
+      this.productService.getAllByCategory(categoryParam)
+        .subscribe(products => this.products = products);
+    } else {
+      this.productService.getAll()
+        .subscribe(ps => this.products = ps);
+    }
   }
 }

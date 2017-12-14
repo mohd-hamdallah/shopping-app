@@ -1,33 +1,49 @@
-import { AdminGuard } from './guards/admin.guard';
 import { CommonModule } from '@angular/common';
-import { AuthInterceptor } from './services/auth.interceptor';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CustomFormsModule } from 'ng2-validation';
 
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { AdminGuard } from './guards/admin.guard';
 import { AuthGaurd } from './guards/auth.guard';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { CategoryService } from './services/category.service';
 import { ProductService } from './services/product.service';
 import { UserService } from './services/user.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgbModule.forRoot(),
-    HttpClientModule
+    TranslateModule.forRoot(
+      {
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }
+
+    )
   ],
   exports: [
     ProductCardComponent,
     FormsModule,
     NgbModule,
     CustomFormsModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    TranslateModule
   ],
   declarations: [ProductCardComponent]
 })
