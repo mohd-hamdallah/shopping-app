@@ -1,1 +1,16 @@
 <button class="btn btn-primary" routerLink="/admin/products/add">Add Product</button>
+<p-dataTable [value]="products" [rows]="5" [paginator]="true" [pageLinks]="4" [rowsPerPageOptions]="[5,10,20]" resizableColumns="true"
+    sortMode="multiple">
+
+    <p-column field="title" resizable="true" header="title" [sortable]="true"></p-column>
+    <p-column field="id" header="title" hidden="true"></p-column>
+
+    <p-column field="category" header="category" [sortable]="true"></p-column>
+    <p-column field="price" header="price" [sortable]="true"></p-column>
+    <p-column styleClass="col-button" header="Actions">
+
+        <ng-template let-product="rowData" pTemplate="body">
+            <button type="button" icon="fa-pencil" class="btn btn-link" [routerLink]="['/admin/products',product['id']]"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+        </ng-template>
+    </p-column>
+</p-dataTable>

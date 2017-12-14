@@ -8,6 +8,11 @@ import { OrdersComponent } from './component/orders/orders.component';
 import { ProductFormComponent } from './component/product-form/product-form.component';
 import { ProductsComponent } from './component/products/products.component';
 import { AdminGuard } from './guards/admin.guard';
+import { DataTableModule,ButtonModule } from 'primeng/primeng';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 const ROUTES = [
   {
@@ -35,7 +40,10 @@ const ROUTES = [
 @NgModule({
   imports: [
     SharedModule,
-  //  DataTableModule,
+    //  DataTableModule,
+    DataTableModule,
+    ButtonModule,
+    NoopAnimationsModule,
     RouterModule.forChild(ROUTES),
   ],
   declarations: [
@@ -46,4 +54,4 @@ const ROUTES = [
   providers: [AdminGuard],
   exports: []
 })
-export class AdminModule {}
+export class AdminModule { }
