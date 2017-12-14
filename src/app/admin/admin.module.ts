@@ -1,13 +1,18 @@
-import { AuthGaurd } from 'shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-// import { DataTableModule } from 'angular-4-data-table/src/index';
-
+import { ButtonModule, DataTableModule } from 'primeng/primeng';
 import { AdminGuard } from 'shared/guards/admin.guard';
+import { AuthGaurd } from 'shared/guards/auth.guard';
 import { SharedModule } from 'shared/shared.module';
+
 import { OrdersComponent } from './component/orders/orders.component';
 import { ProductFormComponent } from './component/product-form/product-form.component';
 import { ProductsComponent } from './component/products/products.component';
+
+// import { DataTableModule } from 'angular-4-data-table/src/index';
+
+
 
 
 const ROUTES = [
@@ -46,7 +51,10 @@ const ROUTES = [
 @NgModule({
   imports: [
     SharedModule,
-  //  DataTableModule,
+    //  DataTableModule,
+    DataTableModule,
+    ButtonModule,
+    NoopAnimationsModule,
     RouterModule.forChild(ROUTES),
   ],
   declarations: [

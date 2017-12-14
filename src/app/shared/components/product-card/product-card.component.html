@@ -10,7 +10,7 @@
           Product Title
         </h4>
       </ng-template>
-      <p class="card-text">{{ product.price | currency:'USD':true}}</p>
+      <p class="card-text product-price">{{ product.price | currency:'USD':true}}</p>
     </div>
     <div *ngIf="hasAction">
       <button class="btn btn-primary btn-block">Add to cart</button>

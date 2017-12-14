@@ -11,7 +11,7 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
     private endpoint,
     private http: HttpClient
   ) {
-    this.url = `${FirebaseHttpService.baseUrl}/${this.endpoint}.json`;
+      this.url = `${FirebaseHttpService.baseUrl}/${this.endpoint}.json`;
   }
 
   abstract transformFirebaseEntityToObject(init): T;
@@ -19,6 +19,7 @@ export abstract class FirebaseHttpService<T extends Identifiable> {
   transformObjectToFirebaseEntity(t: T): any {
     return t;
   }
+  
   getAll(): Observable<T[]> {
     return this.http.get<T>(this.url, this.options)
       .map(collection => this.transformFirebaseCollectionToArray(collection));
